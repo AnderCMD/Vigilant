@@ -33,13 +33,18 @@ The **F15** key is a non-disruptive key that is not present on most physical key
 
 2. **Run the setup script**:
    Execute `setup.bat` on Windows to create a virtual environment and install the required dependencies:
-   ```bash
-   setup.bat
+   ```powershell
+   .\setup.bat
    ```
 
 ## Usage
 
-After installation, you can run the application with:
+After installation, you can run the application using the convenient batch script:
+```powershell
+.\run.bat
+```
+
+Alternatively, you can run it directly with Python:
 ```bash
 python main.py
 ```
@@ -55,10 +60,14 @@ If you want to create a standalone `.exe` file for Windows:
    pip install pyinstaller
    ```
 
-2. **Generate the executable**:
-   Run the following command (or use the provided `build.bat`):
+2. Run the provided `build.bat` for an automated build:
+   ```powershell
+   .\build.bat
+   ```
+
+   Or run the command manually:
    ```bash
-   pyinstaller --noconsole --onefile --icon=icon.ico --add-data "icon.ico;." main.py
+   pyinstaller --noconsole --onefile --icon=icon.ico --add-data "icon.ico;." --name Vigilant main.py
    ```
    - `--noconsole`: Prevents a terminal window from appearing.
    - `--onefile`: Bundles everything into a single `.exe`.
