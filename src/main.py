@@ -28,12 +28,15 @@ def get_resource_path(relative_path: str) -> str:
         # PyInstaller unpacks temporary files into sys._MEIPASS
         base_path = sys._MEIPASS
     except AttributeError:
-        base_path = os.path.abspath(".")
+        # Move up one level from src/ to reach the project root
+        # This assumes main.py is in the src/ directory
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    
     return os.path.join(base_path, relative_path)
 
 
 # Load icons
-icon_path = get_resource_path('icon.ico')
+icon_path = get_resource_path(os.path.join('assets', 'icon.ico'))
 base_img = Image.open(icon_path)
 
 # Active: Full color icon

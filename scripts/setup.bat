@@ -5,16 +5,16 @@ echo [ Vigilant ] Installing environment and dependencies
 echo ==============================================
 echo.
 
-if not exist ".venv" (
+if not exist "..\.venv" (
     echo [1/3] Creating local virtual environment (.venv)...
-    python -m venv .venv
+    python -m venv ..\.venv
 ) else (
     echo [1/3] Virtual environment (.venv) already exists.
 )
 
 echo [2/3] Activating environment and installing dependencies (requirements.txt)...
-call .venv\Scripts\activate
-pip install -r requirements.txt
+call ..\.venv\Scripts\activate
+pip install -r ..\requirements.txt
 
 echo.
 echo ==============================================

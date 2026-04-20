@@ -16,6 +16,20 @@ The **F15** key is a non-disruptive key that is not present on most physical key
 - **Lightweight**: Minimal CPU and memory footprint.
 - **Auto-stop**: Gracefully closes when you exit the app.
 
+## Project Structure
+
+```text
+Vigilant/
+├── assets/          # Application icons and images
+├── scripts/         # Windows batch scripts for setup, run, and build
+├── src/             # Python source code
+├── .gitignore       # Git ignored files
+├── LICENSE          # MIT License
+├── README.md        # Project documentation
+├── requirements.txt # Python dependencies
+└── Vigilant.spec    # PyInstaller specification file
+```
+
 ## Installation
 
 ### Prerequisites
@@ -32,21 +46,21 @@ The **F15** key is a non-disruptive key that is not present on most physical key
    ```
 
 2. **Run the setup script**:
-   Execute `setup.bat` on Windows to create a virtual environment and install the required dependencies:
+   Execute the setup script in the `scripts/` folder to create a virtual environment and install the required dependencies:
    ```powershell
-   .\setup.bat
+   .\scripts\setup.bat
    ```
 
 ## Usage
 
 After installation, you can run the application using the convenient batch script:
 ```powershell
-.\run.bat
+.\scripts\run.bat
 ```
 
 Alternatively, you can run it directly with Python:
 ```bash
-python main.py
+python src/main.py
 ```
 
 ## Packaging
@@ -62,16 +76,16 @@ If you want to create a standalone `.exe` file for Windows:
 
 2. Run the provided `build.bat` for an automated build:
    ```powershell
-   .\build.bat
+   .\scripts\build.bat
    ```
 
    Or run the command manually:
    ```bash
-   pyinstaller --noconsole --onefile --icon=icon.ico --add-data "icon.ico;." --name Vigilant main.py
+   pyinstaller --noconsole --onefile --icon=assets/icon.ico --add-data "assets/icon.ico;assets" --name Vigilant src/main.py
    ```
    - `--noconsole`: Prevents a terminal window from appearing.
    - `--onefile`: Bundles everything into a single `.exe`.
-   - `--add-data`: Includes the icon file inside the executable.
+   - `--add-data`: Includes the icon file inside the executable (mapped to `assets/` subfolder).
 
 The generated file will be in the `dist/` folder.
 
