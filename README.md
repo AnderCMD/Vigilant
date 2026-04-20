@@ -88,3 +88,5 @@ Vigilant does **not** collect any data, connect to the internet, or track your k
 ## License
 
 MIT License - feel free to use and modify for personal or commercial projects.
+
+Prueba
