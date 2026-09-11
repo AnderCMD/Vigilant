@@ -1,5 +1,8 @@
 # Vigilant 👁️
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Lint](https://github.com/AnderCMD/Vigilant/actions/workflows/lint.yml/badge.svg)](https://github.com/AnderCMD/Vigilant/actions/workflows/lint.yml)
+
 Vigilant is a lightweight system tray application for Windows designed to keep your system active and prevent it from going into sleep mode or changing your status to "Away".
 
 ## How it works
@@ -20,14 +23,17 @@ The **F15** key is a non-disruptive key that is not present on most physical key
 
 ```text
 Vigilant/
-├── assets/          # Application icons and images
-├── scripts/         # Windows batch scripts for setup, run, and build
-├── src/             # Python source code
-├── .gitignore       # Git ignored files
-├── LICENSE          # MIT License
-├── README.md        # Project documentation
-├── requirements.txt # Python dependencies
-└── Vigilant.spec    # PyInstaller specification file
+├── .github/            # Issue/PR templates and CI workflows
+├── assets/             # Application icons and images
+├── scripts/            # Windows batch scripts for setup, run, and build
+├── src/                # Python source code
+├── .gitignore          # Git ignored files
+├── CODE_OF_CONDUCT.md  # Community guidelines
+├── CONTRIBUTING.md     # Contribution guide
+├── LICENSE             # MIT License
+├── README.md           # Project documentation
+├── requirements.txt    # Python dependencies
+└── SECURITY.md         # Security policy
 ```
 
 ## Installation
@@ -97,8 +103,12 @@ The generated file will be in the `dist/` folder.
 
 ## Security
 
-Vigilant does **not** collect any data, connect to the internet, or track your keystrokes. It only generates a single keypress at a fixed interval.
+Vigilant does **not** collect any data, connect to the internet, or track your keystrokes. It only generates a single keypress at a fixed interval. See [SECURITY.md](SECURITY.md) for how to report vulnerabilities.
+
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and guidelines, and note that this project follows a [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
-MIT License - feel free to use and modify for personal or commercial projects.
+MIT License - feel free to use and modify for personal or commercial projects. See [LICENSE](LICENSE) for details.
