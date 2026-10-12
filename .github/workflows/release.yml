@@ -1,0 +1,72 @@
+name: Release
+
+# Every push to main (i.e. every merged dev -> main pull request) publishes a
+# new GitHub Release containing the Windows executables.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build & Publish
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Test
+        run: go test ./...
+
+      - name: Compute next version
+        id: version
+        shell: bash
+        run: |
+          version=$(bash scripts/next-version.sh)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Releasing v$version"
+
+      - name: Build
+        shell: pwsh
+        run: |
+          ./scripts/build.ps1 -Version "${{ steps.version.outputs.version }}" -Arch amd64
+          ./scripts/build.ps1 -Version "${{ steps.version.outputs.version }}" -Arch arm64
+
+      - name: Package
+        shell: pwsh
+        working-directory: dist
+        run: |
+          foreach ($arch in "amd64", "arm64") {
+            $zip = "Vigilant-v${{ steps.version.outputs.version }}-windows-$arch.zip"
+            Compress-Archive -Path "vigilant-windows-$arch.exe", ../LICENSE, ../README.md -DestinationPath $zip
+          }
+          Get-ChildItem *.exe, *.zip | ForEach-Object {
+            "$((Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower())  $($_.Name)"
+          } | Set-Content -Encoding ascii checksums.txt
+
+      - name: Publish release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="v${{ steps.version.outputs.version }}"
+          gh release create "$tag" \
+            --target "$GITHUB_SHA" \
+            --title "Vigilant $tag" \
+            --generate-notes \
+            dist/vigilant-windows-amd64.exe \
+            dist/vigilant-windows-arm64.exe \
+            dist/*.zip \
+            dist/checksums.txt

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Vigilant logo">
+  <defs>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b3d42"/>
+      <stop offset="1" stop-color="#1c1d20"/>
+    </linearGradient>
+  </defs>
+  <path d="M128 12 L216 42 V120 C216 176 178 218 128 244 C78 218 40 176 40 120 V42 Z" fill="url(#shield)"/>
+  <path d="M128 21 L209 48.5 V120 C209 171 174 210 128 234 C82 210 47 171 47 120 V48.5 Z" fill="none" stroke="#4a4c52" stroke-width="1.5"/>
+  <path d="M40 128 Q128 56 216 128 Q128 200 40 128 Z" fill="#4cff1a"/>
+  <path d="M58 128 Q128 76 198 128 Q128 180 58 128 Z" fill="#161719"/>
+  <circle cx="128" cy="128" r="26" fill="none" stroke="#4cff1a" stroke-width="10"/>
+  <circle cx="142" cy="114" r="5" fill="#4cff1a"/>
+</svg>

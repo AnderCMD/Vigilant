@@ -1,114 +1,111 @@
-# Vigilant 👁️
+<p align="center">
+  <img src="assets/logo.svg" alt="Vigilant logo" width="128">
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Lint](https://github.com/AnderCMD/Vigilant/actions/workflows/lint.yml/badge.svg)](https://github.com/AnderCMD/Vigilant/actions/workflows/lint.yml)
+<h1 align="center">Vigilant</h1>
 
-Vigilant is a lightweight system tray application for Windows designed to keep your system active and prevent it from going into sleep mode or changing your status to "Away".
+<p align="center">
+  A tiny Windows tray app that keeps your PC awake and your chat status "Active".
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+  <a href="https://github.com/AnderCMD/Vigilant/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/AnderCMD/Vigilant/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/AnderCMD/Vigilant/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/AnderCMD/Vigilant"></a>
+  <img alt="Platform: Windows" src="https://img.shields.io/badge/platform-Windows%2010%2B-blue">
+</p>
 
 ## How it works
 
-Vigilant runs silently in the background and periodically (every 3 minutes by default) simulates a press of the **F15** key. 
-
-The **F15** key is a non-disruptive key that is not present on most physical keyboards, meaning it won't interfere with your typing or any open applications, but it is recognized by the operating system as user activity.
+Vigilant runs silently in the system tray and, every few minutes (3 by default),
+presses the **F15** key and resets Windows' idle timers. F15 is missing from
+almost every keyboard, so no application reacts to it, but Windows still counts
+it as user activity. Result: no sleep, no screen lock timeout (optional) and no
+"Away" status in Teams, Slack and similar apps.
 
 ## Features
 
-- **System Tray Integration**: Easily accessible from the taskbar.
-- **Visual Feedback**: The icon changes to grayscale when paused and color when active.
-- **Easy Control**: Right-click the icon to Pause, Resume, or Exit.
-- **Lightweight**: Minimal CPU and memory footprint.
-- **Auto-stop**: Gracefully closes when you exit the app.
-
-## Project Structure
-
-```text
-Vigilant/
-├── .github/            # Issue/PR templates and CI workflows
-├── assets/             # Application icons and images
-├── scripts/            # Windows batch scripts for setup, run, and build
-├── src/                # Python source code
-├── .gitignore          # Git ignored files
-├── CODE_OF_CONDUCT.md  # Community guidelines
-├── CONTRIBUTING.md     # Contribution guide
-├── LICENSE             # MIT License
-├── README.md           # Project documentation
-├── requirements.txt    # Python dependencies
-└── SECURITY.md         # Security policy
-```
+- **Tiny and fast**: one ~3 MB native executable written in Go, no installer, no runtime.
+- **Start with Windows**: one click in the tray menu.
+- **Pause / Resume**: from the menu or by left-clicking the tray icon; the icon turns gray when paused.
+- **Configurable interval**: 1, 3, 5, 10 or 15 minutes.
+- **Keep display on**: optionally prevent the screen from turning off.
+- **Remembers your settings** in `%APPDATA%\Vigilant\config.json`.
+- **Single instance** and no admin rights required.
+- **Private**: no network access, no telemetry, no key logging.
+- Builds for **x64 and ARM64**.
 
 ## Installation
 
-### Prerequisites
+1. Download `vigilant-windows-amd64.exe` (or `-arm64`) from the
+   [latest release](https://github.com/AnderCMD/Vigilant/releases/latest).
+2. Put it anywhere you like (e.g. `%LOCALAPPDATA%\Programs\Vigilant`) and run it.
+3. Right-click the tray icon and enable **Start with Windows** if you want it at every login.
 
-- [Python 3.9+](https://www.python.org/downloads/)
-- Windows (Primary target for F15 key simulation)
+Verify the download with `checksums.txt` from the same release:
 
-### Setup
+```powershell
+(Get-FileHash .\vigilant-windows-amd64.exe -Algorithm SHA256).Hash
+```
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/AnderCMD/Vigilant.git
-   cd Vigilant
-   ```
-
-2. **Run the setup script**:
-   Execute the setup script in the `scripts/` folder to create a virtual environment and install the required dependencies:
-   ```powershell
-   .\scripts\setup.bat
-   ```
+> Windows SmartScreen may warn about unsigned executables the first time.
+> Vigilant is open source; you can read the code or build it yourself below.
 
 ## Usage
 
-After installation, you can run the application using the convenient batch script:
+| Action                        | How                                           |
+| ----------------------------- | --------------------------------------------- |
+| Pause / resume                | Left-click the tray icon, or menu -> Pause    |
+| Change interval               | Menu -> Interval                              |
+| Keep the screen on            | Menu -> Keep display on                       |
+| Launch at login               | Menu -> Start with Windows                    |
+| Edit settings file            | Menu -> Open settings folder                  |
+| Quit                          | Menu -> Exit                                  |
+
+See [docs/CONFIGURATION.md](docs/CONFIGURATION.md) for details.
+
+## Build from source
+
+Requirements: [Go](https://go.dev/dl/) 1.26+ on Windows.
+
 ```powershell
-.\scripts\run.bat
+git clone https://github.com/AnderCMD/Vigilant.git
+cd Vigilant
+.\scripts\build.ps1            # -> dist\vigilant-windows-amd64.exe
+.\scripts\build.ps1 -Arch arm64
+.\scripts\run.ps1              # run from source
+go test ./...                  # run the tests
 ```
 
-Alternatively, you can run it directly with Python:
-```bash
-python src/main.py
+If PowerShell blocks scripts, use `powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1`.
+
+## Project layout
+
+```text
+cmd/vigilant/       Application entry point and tray menu
+internal/           Scheduler, settings, Win32 wrappers, autostart
+assets/             Logo (SVG) and generated icons
+tools/genicon/      Icon generator (go run ./tools/genicon)
+docs/               Architecture, configuration and release docs
+scripts/            Build, run and repository-setup scripts
+.github/            CI, release workflow, templates, Dependabot
 ```
 
-## Packaging
-
-### Building the Executable
-
-If you want to create a standalone `.exe` file for Windows:
-
-1. **Install PyInstaller**:
-   ```bash
-   pip install pyinstaller
-   ```
-
-2. Run the provided `build.bat` for an automated build:
-   ```powershell
-   .\scripts\build.bat
-   ```
-
-   Or run the command manually:
-   ```bash
-   pyinstaller --noconsole --onefile --icon=assets/icon.ico --add-data "assets/icon.ico;assets" --name Vigilant src/main.py
-   ```
-   - `--noconsole`: Prevents a terminal window from appearing.
-   - `--onefile`: Bundles everything into a single `.exe`.
-   - `--add-data`: Includes the icon file inside the executable (mapped to `assets/` subfolder).
-
-The generated file will be in the `dist/` folder.
-
-## Dependencies
-
-- `pyautogui`: For simulating key presses.
-- `pystray`: For creating the system tray icon.
-- `Pillow`: For image handling and icon manipulation.
-
-## Security
-
-Vigilant does **not** collect any data, connect to the internet, or track your keystrokes. It only generates a single keypress at a fixed interval. See [SECURITY.md](SECURITY.md) for how to report vulnerabilities.
+More in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Contributing
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and guidelines, and note that this project follows a [Code of Conduct](CODE_OF_CONDUCT.md).
+Contributions are welcome! Branch from `dev`, open your pull request against
+`dev`, and read [CONTRIBUTING.md](CONTRIBUTING.md). Releases are published
+automatically when `dev` is merged into `main`
+([docs/RELEASING.md](docs/RELEASING.md)). This project follows a
+[Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Security
+
+Vigilant does **not** collect data, connect to the internet, or read your
+keystrokes. See [SECURITY.md](SECURITY.md) to report vulnerabilities.
 
 ## License
 
-MIT License - feel free to use and modify for personal or commercial projects. See [LICENSE](LICENSE) for details.
+[MIT](LICENSE)

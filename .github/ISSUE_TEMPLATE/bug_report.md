@@ -22,9 +22,9 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment (please complete the following information):**
 - OS: [e.g. Windows 11]
-- Python version: [e.g. 3.11]
-- Vigilant version/commit: [e.g. main @ abc123]
-- Installed via: [setup.bat / built .exe / running from source]
+- Vigilant version: [shown in the tray menu, e.g. v1.2.0]
+- Architecture: [amd64 / arm64]
+- Installed via: [release .exe / built from source]
 
 **Additional context**
 Add any other context about the problem here.
