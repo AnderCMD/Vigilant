@@ -1,49 +1,53 @@
 # Contributing to Vigilant
 
-Thanks for your interest in contributing! This document explains how to get set up and how to submit changes.
+Thanks for your interest in contributing! This guide explains how to get set up and submit changes.
 
-## Getting Started
+## Branching model
 
-1. Fork the repository and clone your fork:
+- `main` - stable, protected, every merge publishes a GitHub Release.
+- `dev` - integration branch; **all pull requests target `dev`**.
+
+Create your branch from `dev` (`feat/my-feature`, `fix/tray-icon`, ...). Maintainers
+periodically open a `dev` -> `main` pull request to cut a release. Details in
+[docs/RELEASING.md](docs/RELEASING.md).
+
+## Getting started
+
+1. Install [Go](https://go.dev/dl/) 1.26 or newer (Windows is required to run the app).
+2. Fork and clone:
    ```bash
    git clone https://github.com/<your-username>/Vigilant.git
    cd Vigilant
+   git checkout dev
+   git checkout -b feat/my-feature
    ```
-2. Run the setup script to create a virtual environment and install dependencies:
-   ```powershell
-   .\scripts\setup.bat
-   ```
-3. Create a branch for your change:
-   ```bash
-   git checkout -b my-feature
-   ```
+3. Run it: `.\scripts\run.ps1`, build it: `.\scripts\build.ps1`.
 
-## Development
+## Before opening a pull request
 
-- Source code lives in `src/`.
-- Windows helper scripts live in `scripts/`.
-- Run the app locally with:
-  ```powershell
-  .\scripts\run.bat
-  ```
-  or directly with `python src/main.py`.
+```powershell
+gofmt -l .        # must print nothing
+go vet ./...
+go test ./...
+```
 
-## Submitting Changes
+CI runs the same checks plus a build for amd64 and arm64.
 
-1. Keep pull requests focused on a single change or feature.
-2. Write clear, descriptive commit messages.
-3. Make sure the application still runs correctly before submitting.
-4. Open a pull request describing what you changed and why.
+## Guidelines
 
-## Reporting Bugs
+- Keep pull requests focused on one change.
+- Use [Conventional Commits](https://www.conventionalcommits.org) (`feat:`, `fix:`,
+  `docs:`, `chore:`, `refactor:`, `test:`, `feat!:` for breaking changes). The next
+  release version is derived from them.
+- Put platform-neutral logic in `internal/vigil` / `internal/config` with unit tests;
+  keep Win32 code in `internal/winapi` and `internal/autostart`.
+- Update documentation and `CHANGELOG.md` when behavior changes.
+- Everything in the repository (code, comments, docs, commits) is written in English.
 
-Please use the [issue templates](.github/ISSUE_TEMPLATE) to report bugs or request features. Include as much detail as possible: your OS/Windows version, Python version, and steps to reproduce.
+## Reporting bugs and ideas
 
-## Code Style
-
-- Follow existing code conventions in the file you're editing.
-- Prefer clear, readable code over cleverness.
-- Add docstrings for new public functions, matching the existing style in `src/main.py`.
+Use the [issue templates](.github/ISSUE_TEMPLATE). Include your Windows version,
+Vigilant version (shown in the tray menu) and steps to reproduce.
 
 ## License
 

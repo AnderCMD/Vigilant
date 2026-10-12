@@ -10,12 +10,13 @@
 
 <!-- Describe how you tested this change. -->
 
-- [ ] Ran the app locally (`.\scripts\run.bat` or `python src/main.py`)
-- [ ] Verified tray icon and pause/resume behavior
-- [ ] Built and tested the executable (if packaging-related change)
+- [ ] `go vet ./...` and `go test ./...` pass
+- [ ] Ran the app locally and verified the tray menu (pause/resume, interval, autostart)
+- [ ] Built the executable with `scripts/build.ps1` (if packaging-related)
 
 ## Checklist
 
-- [ ] My code follows the existing style of the project
-- [ ] I have updated documentation where necessary
+- [ ] The PR targets `dev` (only maintainers open `dev` -> `main` release PRs)
+- [ ] Commit messages follow [Conventional Commits](https://www.conventionalcommits.org)
+- [ ] Documentation and `CHANGELOG.md` are updated where necessary
 - [ ] I have read the [Contributing guidelines](../CONTRIBUTING.md)

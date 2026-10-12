@@ -1,18 +1,12 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-.venv/
-env/
-venv/
-ENV/
-
-# Distribution / packaging
+# Build output
 dist/
-build/
-*.spec
 *.exe
+*.syso
+*.test
+*.out
 
-# OS specific
+# Editors / OS
+.vscode/
+.idea/
 .DS_Store
 Thumbs.db

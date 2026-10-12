@@ -2,8 +2,8 @@
 
 ## Supported Versions
 
-Vigilant is a small utility distributed from the `main` branch. Only the
-latest version is supported with security updates.
+Vigilant is a small utility distributed through GitHub Releases. Only the
+latest release is supported with security updates.
 
 ## Reporting a Vulnerability
 
@@ -20,7 +20,9 @@ We will do our best to respond promptly and address confirmed issues.
 ## Scope Notes
 
 Vigilant does not collect data, connect to the internet, or track keystrokes.
-It only simulates a single, non-disruptive key press (F15) at a fixed
-interval to prevent the system from going idle. Reports related to this core
+It only simulates a single, non-disruptive key press (F15) and resets the
+Windows idle timers at a fixed interval. Settings are stored locally in
+`%APPDATA%\Vigilant\config.json`; the optional autostart entry lives in the
+current user's registry `Run` key. Release binaries ship with SHA-256 checksums. Reports related to this core
 behavior being misused (e.g. as a basis for building surveillance tools) are
 out of scope, since the project intentionally performs no data collection.
