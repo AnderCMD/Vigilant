@@ -50,7 +50,7 @@ jobs:
         run: |
           foreach ($arch in "amd64", "arm64") {
             $zip = "Vigilant-v${{ steps.version.outputs.version }}-windows-$arch.zip"
-            Compress-Archive -Path "vigilant-windows-$arch.exe", ../LICENSE, ../README.md -DestinationPath $zip
+            Compress-Archive -Path "vigilant-windows-$arch.exe", ../LICENSE, ../NOTICE, ../README.md -DestinationPath $zip
           }
           Get-ChildItem *.exe, *.zip | ForEach-Object {
             "$((Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower())  $($_.Name)"
