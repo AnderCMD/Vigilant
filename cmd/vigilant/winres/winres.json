@@ -24,7 +24,7 @@
             "CompanyName": "AnderCMD",
             "FileDescription": "Vigilant - keeps your system awake and your status active",
             "InternalName": "vigilant",
-            "LegalCopyright": "MIT License",
+            "LegalCopyright": "Apache 2.0 License",
             "OriginalFilename": "vigilant.exe",
             "ProductName": "Vigilant"
           }
