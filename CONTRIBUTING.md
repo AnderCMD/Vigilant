@@ -51,4 +51,4 @@ Vigilant version (shown in the tray menu) and steps to reproduce.
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the project's [MIT License](LICENSE).
+By contributing, you agree that your contributions will be licensed under the project's [Apache 2.0 License](LICENSE).
