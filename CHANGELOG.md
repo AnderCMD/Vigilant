@@ -8,6 +8,7 @@ auto-generated notes for every version.
 ## [Unreleased]
 
 ### Changed
+- Relicensed from MIT to Apache License 2.0 (added `NOTICE`).
 - Rewritten in Go: a single ~3 MB native executable with no runtime or
   dependencies to install (previously Python + PyInstaller, ~15 MB+).
 - Activity is now simulated with the Win32 `SendInput` API (F15 key) and
