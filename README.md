@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img alt="License: Apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-yellow.svg"></a>
+  <a href="LICENSE"><img alt="License: Apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"></a>
   <a href="https://github.com/AnderCMD/Vigilant/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/AnderCMD/Vigilant/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/AnderCMD/Vigilant/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/AnderCMD/Vigilant"></a>
   <img alt="Platform: Windows" src="https://img.shields.io/badge/platform-Windows%2010%2B-blue">
